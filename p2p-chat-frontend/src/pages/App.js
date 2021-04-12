@@ -1,4 +1,3 @@
-import logo from '../assets/images/logo.svg';
 import '../assets/styles/App.css';
 import HomePage from './HomePage';
 
