@@ -8,7 +8,6 @@ export const AuthContext = React.createContext();
 const initialState = {
   isAuthenticated: false,
   user: null,
-  token: null,
 };
 
 const reducer = (state, action) => {
@@ -43,7 +42,7 @@ function App() {
       }}
     >
       <div className="App">
-        <Header isLoggedIn={!state.isAuthenticated ? false : true}/>
+        <Header isLoggedIn={!state.isAuthenticated ? false : true} userInfo={state.user}/>
         <HomePage />
       </div>
     </AuthContext.Provider>

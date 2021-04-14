@@ -1,26 +1,25 @@
 import React from "react";
 import GoogleLogout from 'react-google-login';
 import { AuthContext } from "../pages/App";
-
-const clientId = '184252370004-1ue8k5g34tf7t55q85vq66rkdj8369uj.apps.googleusercontent.com'
+import Button from '@material-ui/core/Button';
+const axios = require('axios').default;
 
 export default function Logout(){
-  const { dispatch } = React.useContext(AuthContext);
+  const { state, dispatch } = React.useContext(AuthContext);
 
-  const onLogoutSuccess = (res) => {
-    dispatch({ type: "logout"});
+  const handleLogout = (res) => {
+    axios.post('http://127.0.0.1:5000/logout', {email: state.user.email})
+    .then((resp) => {
+      dispatch({ type: "logout"});
+      console.log(resp);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     console.log('Logout success: ', res);
-  }
-  const onLogoutFailure = (res) => {
-    console.log('Logout failed: ', res);
   }
 
   return(
-    <GoogleLogout
-      clientId={clientId}
-      buttonText="Logout"
-      onLogoutSuccess={onLogoutSuccess}
-      onFailure={onLogoutFailure}
-    ></GoogleLogout>
+    <Button variant="contained" onClick={handleLogout}>Logout</Button>
   )
 }
