@@ -8,6 +8,7 @@ import {
 import Chat from './pages/Chat';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Time from './pages/Time';
 
 
 class App extends Component {
@@ -16,9 +17,10 @@ class App extends Component {
     <Router>
       <Switch>
         <Route exact path="/" component={Login}></Route>
-	<Route exact path="/login" component={Login}></Route>
-	<Route exact path="/signup" component={Signup}></Route>
-	<Route exact path="/chat" component={Chat}></Route>
+	<Route path="/login" component={Login}></Route>
+	<Route path="/signup" component={Signup}></Route>
+	<Route path="/chat" component={Chat}></Route>
+	<Route path="/time" component={Time}></Route>
       </Switch>
     </Router>
   );
