@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props){
   const classes = useStyles();
-  console.log('Logged in: ', props.isLoggedIn);
 
   return(
     <AppBar position="static">

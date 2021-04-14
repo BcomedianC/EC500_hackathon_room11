@@ -2,12 +2,14 @@ import React from "react";
 import '../assets/styles/App.css';
 import HomePage from './HomePage';
 import Header from '../components/Header';
+import { SnackbarProvider } from 'notistack';
 
 export const AuthContext = React.createContext();
 
 const initialState = {
   isAuthenticated: false,
   user: null,
+  port: 5000,
 };
 
 const reducer = (state, action) => {
@@ -17,14 +19,15 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload.user,
+        port: action.payload.port,
       };
     case "logout":
       localStorage.clear();
       return {
         ...state,
         isAuthenticated: false,
-        user: null
+        user: null,
       };
     default:
       return state;
@@ -41,10 +44,12 @@ function App() {
         dispatch
       }}
     >
-      <div className="App">
-        <Header isLoggedIn={!state.isAuthenticated ? false : true} userInfo={state.user}/>
-        <HomePage />
-      </div>
+      <SnackbarProvider maxSnack={2}>
+        <div className="App">
+          <Header isLoggedIn={!state.isAuthenticated ? false : true}/>
+          <HomePage />
+        </div>
+      </SnackbarProvider>
     </AuthContext.Provider>
   );
 }
