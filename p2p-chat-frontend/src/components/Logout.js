@@ -1,26 +1,29 @@
 import React from "react";
 import GoogleLogout from 'react-google-login';
 import { AuthContext } from "../pages/App";
-
-const clientId = '184252370004-1ue8k5g34tf7t55q85vq66rkdj8369uj.apps.googleusercontent.com'
+import Button from '@material-ui/core/Button';
+import { useSnackbar } from 'notistack';
+const axios = require('axios').default;
 
 export default function Logout(){
-  const { dispatch } = React.useContext(AuthContext);
+  const { state, dispatch } = React.useContext(AuthContext);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const onLogoutSuccess = (res) => {
-    dispatch({ type: "logout"});
-    console.log('Logout success: ', res);
-  }
-  const onLogoutFailure = (res) => {
-    console.log('Logout failed: ', res);
+  const handleLogout = (res) => {
+    const req_url = 'http://127.0.0.1:'+ state.port.toString() +'/logout'
+    axios.post(req_url, {email: state.user.email})
+    .then((resp) => {
+      dispatch({ type: "logout"});
+      enqueueSnackbar(resp.data, {variant: 'success'});
+      console.log(resp);
+    })
+    .catch((err) => {
+      enqueueSnackbar(err.response.data, {variant: 'error'});
+      console.log(err);
+    });
   }
 
   return(
-    <GoogleLogout
-      clientId={clientId}
-      buttonText="Logout"
-      onLogoutSuccess={onLogoutSuccess}
-      onFailure={onLogoutFailure}
-    ></GoogleLogout>
+    <Button variant="contained" onClick={() => handleLogout()}>Logout</Button>
   )
 }
