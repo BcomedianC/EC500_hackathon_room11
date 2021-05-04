@@ -1,7 +1,7 @@
-# EC500_hackathon_room11
+# EC500_hackathon_room11  
 Repo for BU EC500, Secure P2P Chat Hackathon
 
-Group member:
+Group member:  
 Damani Philip djphilip@bu.edu  
 Buyuan Lin buruce@bu.edu  
 Jiaming Yu jiamingy@bu.edu
